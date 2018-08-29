@@ -1,16 +1,50 @@
-################### Site24x7beat Configuration Example #########################
-
-############################# Site24x7beat ######################################
-
 site24x7beat:
   # Defines how often an event is sent to the output
-  period: 1s
+  period: 60s
+  Input:
+  - enabled: 'true'
+    type: 'website'
+    zohoToken: '123abc456def'
+    id:
+      - '1'
+      - '2'
+      - '3'
+    granularity: '1'
+    period: '0'
+    respTimeData: 'true'
+    throughputData: 'true'
+    locationData: 'true'
 
+  - enabled: 'false'
+    type: 'rum'
+    zohoToken: '123abc456def'
+    id:
+      - '4'
+    timeWindow: 'H'
+    respTimeData: 'true'
+    throughputData: 'true'
+    webpageDetails: 'true'
+    
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  # The Logstash hosts
+ hosts: ["automation-platform-0f399cec09c8b3af.elb.us-east-1.amazonaws.com:31002"]
+ #hosts: ["localhost:5044"]
+ #index: sukbeat
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
 #================================ General =====================================
 
 # The name of the shipper that publishes the network data. It can be used to group
 # all the transactions sent by a single shipper in the web interface.
-#name:
+name: "site24x7"
 
 # The tags of the shipper are included in their own field with each
 # transaction published.
@@ -48,7 +82,7 @@ setup.kibana:
 
 #============================= Elastic Cloud ==================================
 
-# These settings simplify using site24x7beat with the Elastic Cloud (https://cloud.elastic.co/).
+# These settings simplify using Site24x7beat with the Elastic Cloud (https://cloud.elastic.co/).
 
 # The cloud.id setting overwrites the `output.elasticsearch.hosts` and
 # `setup.kibana.host` options.
@@ -64,29 +98,14 @@ setup.kibana:
 # Configure what output to use when sending the data collected by the beat.
 
 #-------------------------- Elasticsearch output ------------------------------
-output.elasticsearch:
+#output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["localhost:9200"]
+ # hosts: ["localhost:9200"]
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
   #username: "elastic"
   #password: "changeme"
-
-#----------------------------- Logstash output --------------------------------
-#output.logstash:
-  # The Logstash hosts
-  #hosts: ["localhost:5044"]
-
-  # Optional SSL. By default is off.
-  # List of root certificates for HTTPS server verifications
-  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
-
-  # Certificate for SSL client authentication
-  #ssl.certificate: "/etc/pki/client/cert.pem"
-
-  # Client Certificate Key
-  #ssl.key: "/etc/pki/client/cert.key"
 
 #================================ Logging =====================================
 
@@ -100,7 +119,7 @@ output.elasticsearch:
 #logging.selectors: ["*"]
 
 #============================== Xpack Monitoring ===============================
-# site24x7beat can export internal metrics to a central Elasticsearch monitoring
+# Site24x7beat can export internal metrics to a central Elasticsearch monitoring
 # cluster.  This requires xpack monitoring to be enabled in Elasticsearch.  The
 # reporting is disabled by default.
 
