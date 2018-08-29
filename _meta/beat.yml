@@ -1,0 +1,7 @@
+################### Site24x7beat Configuration Example #########################
+
+############################# Site24x7beat ######################################
+
+site24x7beat:
+  # Defines how often an event is sent to the output
+  period: 1s

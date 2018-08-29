@@ -1,0 +1,9 @@
+- key: site24x7beat
+  title: site24x7beat
+  description:
+  fields:
+    - name: counter
+      type: long
+      required: true
+      description: >
+        PLEASE UPDATE DOCUMENTATION
